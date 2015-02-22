@@ -1,0 +1,25 @@
+go to src/ and run
+
+    make
+
+The include Makefile was tested with gcc
+under Mac and Linux. If you're not using gcc,
+then you proably know more than I do and can
+make the appropriate changes.
+
+
+To make the Matlab mex files, either
+
+1) in a shell, go to Matlab/ and run
+
+    make
+
+or,
+2) in Matlab, go to Matlab/ and run
+
+    compile_mex
+
+which installs the mex files and runs
+a simple test.
+If you have Windows, this second option 
+is undoubtedly much easier
