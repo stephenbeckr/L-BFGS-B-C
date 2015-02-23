@@ -8,7 +8,9 @@
 
 
  /* You could have to modify these
- * if you are on a 32-bit system */
+ * Noticed that on windows, long int is 32-bit
+ * while on linux and mac long int is 64-bit.
+  *Use long long to force 64-bit if you want */
 typedef long int integer;
 typedef long int ftnlen;
 typedef long int logical;
@@ -24,9 +26,17 @@ typedef long int logical;
 #endif
 /* mex.h includes matrix.h, which uses abs() */
 
+/* Visual C++ compiler often includes file that have already
+ * defined min/max, so do a check first */
+#ifndef abs
 #define abs(x) ((x) >= 0 ? (x) : -(x))
+#endif
+#ifndef min
 #define min(a,b) ((a) <= (b) ? (a) : (b))
+#endif
+#ifndef max
 #define max(a,b) ((a) >= (b) ? (a) : (b))
+#endif
 
 
 

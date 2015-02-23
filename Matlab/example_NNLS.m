@@ -28,17 +28,19 @@
 %
 % mtron, mex wrapper by Christoph Ortner, available at:
 %   http://www.mathworks.com/matlabcentral/fileexchange/14848-mtron
-%   Based on the fortran tron algorithm by Chih-Jen Lin and Jorge Moreé, 
+%   Based on the fortran tron algorithm by Chih-Jen Lin and Jorge More, 
 %   "Newton's method for large bound-constrained optimization problems",
 %   SIAM Journal on Optimization, 9(4), pp. 1100-1127, 1999.
 %        http://www-unix.mcs.anl.gov/~more/tron/ 
 %
 % L-BFGS-B.
-%   mex wrapper for v2.1 of the fortran files.
 %   R. Byrd, P. Lu, J. Nocedal, and C. Zhu, "A Limited Memory Algorithm
 % for Bound Constrained Optimization", SIAM Journal on Scientific Computing, 16
 % (1995), pp. 1190--1208.
 %
+%
+% For a published version of this demo, see
+%   http://www.mathworks.com/examples/matlab/4139-non-negative-least-squares-nnls-using-l-bfbs-b
 %% This demo
 % Here, we use the mex wrapper for L-BFGS-B v3.0, which is a significantly
 %   improved version of L-BFGS-B from v2.1. We show how to use
@@ -48,18 +50,21 @@
 %   file exchange. In addition to Fast NNLS (FNNLS), mtron, and LBFGS,
 %   we compare with the following algorithms, all written by Uriel Roque
 %   and based on: Portugal, Judice and Vicente, 
-% "A comparison of block pivoting and interior pointalgorithms for 
+% "A comparison of block pivoting and interior point algorithms for 
 % linear least squares problems with nonnegative variables",
 %  Mathematics of Computation, 63(1994), pp. 625-643
 %
 % activeset.m   This is pretty fast for medium-scale and smaller problems
+%       http://www.mathworks.com/matlabcentral/fileexchange/10908-active-set-algorithm
 %
 % blocknnls.m   Similar to activeset.m in performance
+%       http://www.mathworks.com/matlabcentral/fileexchange/8157-nnls/content/blocknnls.m
 %
 % newton.m  Very slow for large problems
+%       http://www.mathworks.com/matlabcentral/fileexchange/10953-newton-s-algorithm-for-nnls
 % 
 % pcnnls.m (predictor-corrector method) Very slow for large problems
-%
+%       http://www.mathworks.com/matlabcentral/fileexchange/8150-predictor-corrector-algorithm
 %
 % The most interesting tests use large matrices. For small matrices, tests
 % are pointless, because any of the methods are suitable.

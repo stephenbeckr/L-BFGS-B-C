@@ -4,8 +4,10 @@ function [x,f,info] = lbfgsb( fcn, l, u, opts )
 %       see compile_mex.m ) which is the L-BFGS-B algorithm.
 %   The algorithm is similar to the L-BFGS quasi-Newton algorithm,
 %   but also handles bound constraints via an active-set type iteration.
+%   This version is based on the modified C code L-BFGS-B-C, and so has 
+%   a slightly different calling syntax than previous versions.
 %
-%  The minimization problem that is solves is:
+%  The minimization problem that it solves is:
 %       min_x  f(x)     subject to   l <= x <= u
 %
 % 'fcn' is a function handle that accepts an input, 'x',
@@ -49,7 +51,7 @@ function [x,f,info] = lbfgsb( fcn, l, u, opts )
 
 
 
-error(nargchk(3, 4, nargin, 'struct'))
+narginchk(3, 4)
 if nargin < 4, opts = struct([]); end
 
 % Matlab doesn't let you use the .name convention with structures
@@ -80,7 +82,9 @@ n   = length(l);
 if length(u) ~= length(l), error('l and u must be same length'); end
 x0  = setOpts( 'x0', zeros(n,1) );
 x   = x0 + 0; % important: we want Matlab to make a copy of this. 
-              %  'x' will be modified in-place
+              %  just in case 'x' will be modified in-place
+              % (Feb 2015 version of code, it should not be modified,
+              %  but just-in-case, may as well leave this )
               
 if size(x0,2) ~= 1, error('x0 must be a column vector'); end
 if size(l,2) ~= 1, error('l must be a column vector'); end
@@ -101,7 +105,11 @@ m   = setOpts( 'm', 5, 0 );
 % This .m file assumes l=-Inf and u=+Inf imply that there are no constraints.
 % So, convert this to the fortran convention:
 nbd     = isfinite(l) + isfinite(u) + 2*isinf(l).*isfinite(u);
-nbd = int64(nbd);
+if ispc
+    nbd = int32(nbd);
+else
+    nbd = int64(nbd);
+end
 
 
 % Some scalar settings, "factr" and "pgtol"
@@ -132,7 +140,6 @@ factr   = setOpts( 'factr', 1e7 );
 %       The user can suppress this termination test by setting pgtol=0.
 pgtol   = setOpts( 'pgtol', 1e-5 );
 
-
 % Maximum number of outer iterations
 maxIts  = setOpts( 'maxIts', 100, 1 );
 
@@ -140,22 +147,26 @@ maxIts  = setOpts( 'maxIts', 100, 1 );
 %   (this includes the line search steps )
 maxTotalIts     = setOpts( 'maxTotalIts', 5e3 );
 
-% Print out information this often:
+% Print out information this often (and set to Inf to suppress)
 printEvery  = setOpts( 'printEvery', 1 );
 
 errFcn      = setOpts( 'errFcn', [] );
 
 iprint  = setOpts('verbose',-1);
 % <0 for no output, 0 for some, 1 for more, 99 for more, 100 for more
+% I recommend you set this -1 and use the Matlab print features
+% (e.g., set printEvery )
 
 fcn_wrapper(); % initialized persistent variables
 callF_wrapped = @(x,varargin) fcn_wrapper( callF, errFcn, maxIts, ...
     printEvery, x, varargin{:} );
 % callF_wrapped = @(x,varargin)callF(x); % also valid, but simpler
 
+% Call the mex file
 [f,x,taskInteger,outer_count, k] = lbfgsb_wrapper( m, x, l, u, nbd, ...
     callF_wrapped, factr, pgtol, ...
     iprint, maxIts, maxTotalIts);
+
 info.iterations     = outer_count;
 info.totalIterations = k;
 info.lbfgs_message1  = findTaskString( taskInteger );

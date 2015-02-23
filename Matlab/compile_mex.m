@@ -7,7 +7,7 @@ Stephen Becker, Feb 14, 2012  srbecker@alumni.caltech.edu
 Updated         May  3, 2012  adding the f2c version for Windows userss
 Updated         Jun 24, 2012  adding a lot of trouble-shooting support mainly for 64-bit linux
 MAJOR Update    Feb 21, 2015  stephen.becker@colorado.edu
-    completey redid mex file and lbfgs library
+    completely redid mex file and lbfgs library
     (converted LBFGSB fortran code to C). Many changes. Most of the Matlab
     interface remains the same, but mex interface has changed.
     Should not affect end-user. Compilation is SO MUCH EASIER than it
@@ -35,9 +35,14 @@ for i = 1:length(SRC)
     SRC{i} = fullfile(SRC_DIR,SRC{i});
 end
 
-mex('lbfgsb_wrapper.c','-largeArrayDims','-lm','-UDEBUG',...
-   ['-I',SRC_DIR], SRC{:} );
-
+if ispc
+    % do not specify -lm flag
+    mex('lbfgsb_wrapper.c','-largeArrayDims','-UDEBUG',...
+        ['-I',SRC_DIR], SRC{:} );
+else
+    mex('lbfgsb_wrapper.c','-largeArrayDims','-lm','-UDEBUG',...
+        ['-I',SRC_DIR], SRC{:} );
+end
 
 %% test the new function
 disp('=== lbfgsb "driver1" test problem (Rosenbrock, 25 dimensions) === ');

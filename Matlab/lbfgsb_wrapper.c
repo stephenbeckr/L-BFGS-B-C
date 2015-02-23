@@ -9,13 +9,12 @@
  *  (so just modify lbfgsb.m to suit your own taste)
  *
  * Written by Stephen Becker, Feb 14 2012
+ * Major update Feb 21 2015
  *
- * This assumes you have installed lbfgsb 3.0
- * (free; see http://users.eecs.northwestern.edu/~nocedal/lbfgsb.html,
- *  direct download is:
- * http://users.eecs.northwestern.edu/~nocedal/Software/Lbfgsb.3.0.tar.gz )
+ * This re-distributes a C version of lbfgsb 3.0
+ * (free; see http://users.eecs.northwestern.edu/~nocedal/lbfgsb.html)
  *
- * There are also versions 2.1 and 2.4 of the library
+ * There are also versions 2.1 and 2.4 of the lbfgsb library
  *      For v 2.1, Peter Carbonetto's mex interface works; see
  * http://www.mathworks.com/matlabcentral/fileexchange/15061-matlab-interface-for-l-bfgs-b
  *      and also
@@ -28,7 +27,13 @@
  *  
  *  You should use version 3.0! It's better.  The old versions are basically
  *  15 years old; changes in version 3.0 are fundamental (see the 2011 "remark" paper
- *  listated at Nocedal's website)
+ *  listed at Nocedal's website)
+ *
+ *  Also, this version has converted everything to C, so there is no mixed
+ *  C and fortran, and compilation is much easier. In the conversion,
+ *  I changed a few conventions, and some of these are marked with my 
+ *  initials SRB
+ *      -- Stephen Becker, Feb 2015. stephen.becker@colorado.edu
  *
  *
  *
@@ -47,9 +52,9 @@
  *  pgtol   stopping crit for infinity norm of projected gradient
  *  wa      work space array (double)
  *  iwa     work space array (int)
- *  task    string                                  UPDATE: now an integer
+ *  task    string                                  SRB UPDATE: now an integer
  *  iprint  how verbose the fortran program should be
- *  csave       some iformation (string, length 60) UPDATE: now an integer
+ *  csave       some iformation (string, length 60) SRB UPDATE: now an integer
  *  lsave[4]    some information (logicals)
  *  isave[44]   some information (integers)
  *  dsave[29]   some information (doubles)
@@ -64,23 +69,11 @@
 #include <math.h>
 /* #include "mex.h" */  /* now, mex.h included in lbfgsb.h */
 
-
-/* matrix.h includes tmwtypes.h, which defines mwSize=size_t
- * unless MX_COMPAT_32 has been defined, in which case mwSize is
- * defined as int.  So assuming mwSize=size_t,
- * then if you pass in an 'int', it will automatically be scaled
- * up if necessary, so there's no problem.
- * You probably do NOT want size variables, like 'm' and 'n',
- * to be size_t in size, because the fortran program will have
- * problems then.
- * */
-
 #include "lbfgsb.h"
 
 #include <string.h>
 #include <limits.h> /* for CHAR_BIT */
 #include <assert.h>
-
 
 
 /* These are the fortran arguments in order */
@@ -95,7 +88,7 @@
 #define N_iterMax 9 /* new */
 #define N_total_iterMax 10 /* new */
 
-#define N_fcn 5
+#define N_fcn 5 /* new in 2015 */
 
 /* these depend on the lbfgsb release version */
 #define LENGTH_STRING 60
@@ -115,11 +108,8 @@ int fakePrintf(const char *format, ...){
 }
 
 mxLogical isInt( const mxArray *pm ) {
-    /* What size 'int' does the fortran program
-     * expect ? Not sure... But let's hope that
-     * it's the same size as the "int" in C.
-     * On my 64-bit computer, CHAR_BIT = 8
-     * and sizeof(int) = 4, so it's still 32 bits 
+    /* We typedef "integer" to be "long int", and this is not
+     * constant across different computers.
      *
      * CHAR_BIT is from limits.h
      * If using gcc, you can run `gcc -dM -E - < /dev/null | grep CHAR_BIT`
@@ -168,11 +158,18 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
     integer isave[LENGTH_ISAVE];
     double  dsave[LENGTH_DSAVE];
     
+    double *nbd_dbl=NULL;
+    long long *nbd_long=NULL;
+    
+    mxArray *LHS[2];
+    mxArray *RHS[3];
+    double *tempX, *tempG, *tempIter;
+    
     /* Parse inputs. Quite boring */
     
     if (nrhs < 5 ) mexErrMsgTxt("Needs at least 5 input arguments");
     m       = (int)*mxGetPr( prhs[N_m] );
-    n       = mxGetM( prhs[N_x] );
+    n       = (integer)mxGetM( prhs[N_x] );
     if ( mxGetN(prhs[N_x]) != 1 ) mexErrMsgTxt("x must be a column vector");
     if ( mxGetM(prhs[N_l]) != n ) mexErrMsgTxt("l must have same size as x");
     if ( mxGetM(prhs[N_u]) != n ) mexErrMsgTxt("u must have same size as x");
@@ -192,15 +189,34 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
         nbd     = (integer *)mxGetData( prhs[N_nbd] ); 
     } else {
         debugPrintf("Converting nbd array to integers\n" );
-        if (!mxIsDouble(prhs[N_nbd]))
-            mexErrMsgTxt("Nbd array not doubles!\n");
-        double *nbd_dbl = mxGetPr( prhs[N_nbd] );
-        nbd     = (integer *)mxMalloc( n * sizeof(integer) );
-        assert( nbd != NULL );
-        FREE_nbd = true;
-        /* convert nbd_dbl (in double format) to integers */
-        for (i=0;i<n;i++)
-            nbd[i]  = (integer)nbd_dbl[i];
+        if (!mxIsDouble(prhs[N_nbd])){
+            if (mxIsInt64(prhs[N_nbd])){
+                nbd_long = mxGetData( prhs[N_nbd] );
+                nbd     = (integer *)mxMalloc( n * sizeof(integer) );
+                assert( nbd != NULL );
+                FREE_nbd = true;
+                /* convert nbd_dbl (in double format) to integers */
+                for (i=0;i<n;i++)
+                    nbd[i]  = (integer)nbd_long[i];
+            } else {
+                debugPrintf("Sizeof(int) is %d bits, sizeof(integer) is %d bits\n",
+                        CHAR_BIT*sizeof(int),CHAR_BIT*sizeof(integer) );
+                /* integer is aliased to 'long int' and should be at least
+                 * 32 bits. 'long long' should be at least 64 bits.
+                 * On 64-bit Windows, it seems 'long int' is exactly 32 bits,
+                 * while on 64-bit linux and Mac, it is 67 bits */
+                debugPrintf("Nbd is of type %s\n", mxGetClassName( prhs[N_nbd] ) );
+                mexErrMsgTxt("Nbd array not doubles or type int64!\n");
+            }
+        } else {
+            nbd_dbl = mxGetPr( prhs[N_nbd] );
+            nbd     = (integer *)mxMalloc( n * sizeof(integer) );
+            assert( nbd != NULL );
+            FREE_nbd = true;
+            /* convert nbd_dbl (in double format) to integers */
+            for (i=0;i<n;i++)
+                nbd[i]  = (integer)nbd_dbl[i];
+        }
     }
 
 
@@ -251,12 +267,9 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
     
     if ( nrhs < N_fcn - 1 )
         mexErrMsgTxt("For this f(x) feature, need more input aguments\n");
-    mxArray *LHS[2];
-    mxArray *RHS[3];
     RHS[0] = mxDuplicateArray( prhs[N_fcn] );
     RHS[1] = mxCreateDoubleMatrix(n,1,mxREAL);
     RHS[2] = mxCreateDoubleScalar( 0.0 ); /* The iterations counter */
-    double *tempX, *tempG, *tempIter;
     tempX = (double*)mxGetPr( RHS[1] );
     if (!mxIsDouble(RHS[2]))
         mexErrMsgTxt("Error trying to create RHS[2]\n");
