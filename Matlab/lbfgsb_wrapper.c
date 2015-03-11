@@ -227,6 +227,8 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
         factr   = 1.0e7;
     else {
         factr   = (double)mxGetScalar( prhs[N_factr] );
+        if (factr < 0 )
+            mexErrMsgTxt("factr must be >= 0\n");
     }
 
     if ( nrhs < N_pgtol+1 ) 
@@ -235,6 +237,8 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
         pgtol   = 1.0e-5;
     else {
         pgtol   = (double)mxGetScalar( prhs[N_pgtol] );
+        if (pgtol < 0)
+            mexErrMsgTxt("pgtol must be >= 0\n");
     }
     if ( nrhs < N_iprint+1 ) {
         iprint  = (integer)1;

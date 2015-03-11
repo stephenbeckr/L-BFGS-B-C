@@ -128,7 +128,7 @@ end
 %             1.d+7  for moderate accuracy; 
 %             1.d+1  for extremely high accuracy.
 %       The user can suppress this termination test by setting factr=0.
-factr   = setOpts( 'factr', 1e7 );
+factr   = setOpts( 'factr', 1e7, 0 );
 
 %     pgtol is a double precision variable.
 %       On entry pgtol >= 0 is specified by the user.  The iteration
@@ -138,7 +138,7 @@ factr   = setOpts( 'factr', 1e7 );
 %
 %         where pg_i is the ith component of the projected gradient.
 %       The user can suppress this termination test by setting pgtol=0.
-pgtol   = setOpts( 'pgtol', 1e-5 );
+pgtol   = setOpts( 'pgtol', 1e-5, 0 ); % may crash if < 0
 
 % Maximum number of outer iterations
 maxIts  = setOpts( 'maxIts', 100, 1 );
