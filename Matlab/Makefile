@@ -4,7 +4,9 @@
 # Assumes you have gcc
 
 
-CC = mex
+MATLAB = $(shell matlab -e | sed -n 's/MATLAB=//p')
+CC = $(MATLAB)/bin/mex
+#CC = mex  # Can be mistaken for pdftex
 FLAGS = -largeArrayDims -lm
 FLAGS += -O -g
 #FLAGS += "CFLAGS='$$CFLAGS -Wall'"
