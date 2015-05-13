@@ -8,8 +8,9 @@ CC = gcc
 
 #FFLAGS = -O -Wall -fbounds-check -g -Wno-uninitialized 
 #FFLAGS += -fdefault-integer-8
-CFLAGS = -O3 -Wall -Wno-uninitialized -lm
+CFLAGS = -O3 -Wall -Wno-uninitialized 
 #CFLAGS = -g -Wall -lm -DDEBUG -Wuninitialized -Wextra -Wno-unused-parameter
+LDFLAGS = -lm
 
 # my f2c.h is here:
 INCLUDES = -I/usr/local/include -I./
@@ -33,13 +34,13 @@ default: all test_1
 all :  lbfgsb_77_1 lbfgsb_77_2 lbfgsb_77_3
 
 lbfgsb_77_1 : $(DRIVER1_77C) $(SRC)
-	$(CC) $(CFLAGS) $(DRIVER1_77) $(SRC) -o x.lbfgsb_77_1
+	$(CC) $(CFLAGS) $(DRIVER1_77) $(SRC) $(LDFLAGS) -o x.lbfgsb_77_1
 
 lbfgsb_77_2 : $(DRIVER2_77C) $(LBFGSB) $(LINPACK) $(BLAS) $(TIMER)
-	$(CC) $(CFLAGS) $(DRIVER2_77) $(SRC) -o x.lbfgsb_77_2
+	$(CC) $(CFLAGS) $(DRIVER2_77) $(SRC) $(LDFLAGS) -o x.lbfgsb_77_2
 
 lbfgsb_77_3 : $(DRIVER2_77C) $(LBFGSB) $(LINPACK) $(BLAS) $(TIMER)
-	$(CC) $(CFLAGS) $(DRIVER3_77) $(SRC) -o x.lbfgsb_77_3
+	$(CC) $(CFLAGS) $(DRIVER3_77) $(SRC) $(LDFLAGS) -o x.lbfgsb_77_3
 
 test_1 : x.lbfgsb_77_1
 	./x.lbfgsb_77_1
