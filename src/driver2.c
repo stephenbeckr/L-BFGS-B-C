@@ -198,7 +198,7 @@ L111:
         }
         /*  2) Terminate if  |proj g|/(1+|f|) < 1.0d-10, where */
         /*           "proj g" denoted the projected gradient */
-        if (dsave[12] <= (abs(f) + 1.) * 1e-10) {
+        if (dsave[12] <= (fabs(f) + 1.) * 1e-10) {
             *task = STOP_GRAD;
 /*             s_copy(task, "STOP: THE PROJECTED GRADIENT IS SUFFICIENTLY SMALL", */
 /*                     (ftnlen)60, (ftnlen)50); */

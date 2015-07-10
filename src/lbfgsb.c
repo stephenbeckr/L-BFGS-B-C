@@ -940,8 +940,8 @@ L777:
         goto L999;
     }
     /* Computing MAX */
-    d__1 = abs(fold), d__2 = abs(*f), d__1 = max(d__1,d__2);
-    ddum = max(d__1,1.);
+    d__1 = fabs(fold), d__2 = fabs(*f), d__1 = fmax(d__1,d__2);
+    ddum = fmax(d__1,1.);
     if (fold - *f <= tol * ddum) {
         /*                                        terminate the algorithm. */
         *task = CONV_F;
