@@ -28,15 +28,17 @@ typedef long int logical;
 
 /* Visual C++ compiler often includes file that have already
  * defined min/max, so do a check first */
-#ifndef abs
-#define abs(x) ((x) >= 0 ? (x) : -(x))
-#endif
-#ifndef min
-#define min(a,b) ((a) <= (b) ? (a) : (b))
-#endif
-#ifndef max
-#define max(a,b) ((a) >= (b) ? (a) : (b))
-#endif
+/* The below cause conflicts with other versions of abs, max, min.
+   Replaced with fabs, fmin, fmax provided by math.h */
+/* #ifndef abs */
+/* #define abs(x) ((x) >= 0 ? (x) : -(x)) */
+/* #endif */
+/* #ifndef min */
+/* #define min(a,b) ((a) <= (b) ? (a) : (b)) */
+/* #endif */
+/* #ifndef max */
+/* #define max(a,b) ((a) >= (b) ? (a) : (b)) */
+/* #endif */
 
 
 

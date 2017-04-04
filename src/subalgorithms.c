@@ -560,7 +560,7 @@ static integer c__11 = 11;
                     iwhere[i__] = 2;
                 }
             } else {
-                if (abs(neggi) <= 0.) {
+                if (fabs(neggi) <= 0.) {
                     iwhere[i__] = -3;
                 }
             }
@@ -601,7 +601,7 @@ static integer c__11 = 11;
                 /*                x(i) + d(i) is not bounded. */
                 --nfree;
                 iorder[nfree] = i__;
-                if (abs(neggi) > 0.) {
+                if (fabs(neggi) > 0.) {
                     bnded = FALSE_;
                 }
             }
@@ -759,7 +759,7 @@ L777:
     }
     /* Computing MAX */
     d__1 = *epsmch * f2_org__;
-    f2 = max(d__1,f2);
+    f2 = fmax(d__1,f2);
     if (nleft > 0) {
         dtm = -f1 / f2;
         goto L777;
@@ -1361,7 +1361,7 @@ L999:
     for (i__ = 2; i__ <= i__1; ++i__) {
 	i__2 = *col;
 	for (j = i__; j <= i__2; ++j) {
-	    k1 = min(i__,j) - 1;
+	    k1 = fmin(i__,j) - 1;
 	    ddum = 0.;
 	    i__3 = k1;
 	    for (k = 1; k <= i__3; ++k) {
@@ -1785,19 +1785,19 @@ L30:
                 if (nbd[i__] >= 2) {
                     /* Computing MAX */
                     d__1 = x[i__] - u[i__];
-                    gi = max(d__1,gi);
+                    gi = fmax(d__1,gi);
                 }
             } else {
                 if (nbd[i__] <= 2) {
                     /* Computing MIN */
                     d__1 = x[i__] - l[i__];
-                    gi = min(d__1,gi);
+                    gi = fmin(d__1,gi);
                 }
             }
         }
         /* Computing MAX */
-        d__1 = *sbgnrm, d__2 = abs(gi);
-        *sbgnrm = max(d__1,d__2);
+        d__1 = *sbgnrm, d__2 = fabs(gi);
+        *sbgnrm = fmax(d__1,d__2);
         /* L15: */
     }
     return 0;
@@ -2109,7 +2109,7 @@ L30:
                 /* lower bounds only */
                 /* Computing MAX */
                 d__1 = l[k], d__2 = xk + dk;
-                x[k] = max(d__1,d__2);
+                x[k] = fmax(d__1,d__2);
                 if (x[k] == l[k]) {
                     *iword = 1;
                 }
@@ -2119,10 +2119,10 @@ L30:
                     /* upper and lower bounds */
                     /* Computing MAX */
                     d__1 = l[k], d__2 = xk + dk;
-                    xk = max(d__1,d__2);
+                    xk = fmax(d__1,d__2);
                     /* Computing MIN */
                     d__1 = u[k];
-                    x[k] = min(d__1,xk);
+                    x[k] = fmin(d__1,xk);
                     if (x[k] == l[k] || x[k] == u[k]) {
                         *iword = 1;
                     }
@@ -2132,7 +2132,7 @@ L30:
                         /* upper bounds only */
                         /* Computing MIN */
                         d__1 = u[k], d__2 = xk + dk;
-                        x[k] = min(d__1,d__2);
+                        x[k] = fmin(d__1,d__2);
                         if (x[k] == u[k]) {
                             *iword = 1;
                         }
