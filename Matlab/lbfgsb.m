@@ -157,7 +157,7 @@ iprint  = setOpts('verbose',-1);
 % I recommend you set this -1 and use the Matlab print features
 % (e.g., set printEvery )
 
-fcn_wrapper(); % initialized persistent variables
+fcn_wrapper([], [], [], printEvery); % initialized persistent variables
 callF_wrapped = @(x,varargin) fcn_wrapper( callF, errFcn, maxIts, ...
     printEvery, x, varargin{:} );
 % callF_wrapped = @(x,varargin)callF(x); % also valid, but simpler
@@ -170,17 +170,19 @@ callF_wrapped = @(x,varargin) fcn_wrapper( callF, errFcn, maxIts, ...
 info.iterations     = outer_count;
 info.totalIterations = k;
 info.lbfgs_message1  = findTaskString( taskInteger );
-errHist = fcn_wrapper();
+errHist = fcn_wrapper([], [], [], printEvery);
 info.err = errHist;
 end % end of main function
 
 function [f,g] = fcn_wrapper( callF, errFcn, maxIts, printEvery, x, varargin )
 persistent k history
 if isempty(k), k = 1; end
-if nargin==0
+if nargin==4
     % reset persistent variables and return information
     if ~isempty(history) && ~isempty(k) 
-        printFcn(k,history);
+        if printEvery > 0
+            printFcn(k,history);
+        end
         f = history(1:k,:);
     end
     history = [];
@@ -217,7 +219,7 @@ if nargin > 5
         % is actually updated
 %         fprintf('At iterate %5d, f(x)= %.2e, ||grad||_infty = %.2e [MATLAB]\n',...
 %             k,history(k,1),history(k,2) );
-        if ~isinf(printEvery) && ~mod(k,printEvery)
+        if (printEvery > 0) && ~isinf(printEvery) && ~mod(k,printEvery) 
             printFcn(k,history);
         end
         k = outerIter;
