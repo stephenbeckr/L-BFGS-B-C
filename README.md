@@ -36,7 +36,7 @@ The L-BFGS-B website requests that you cite them. From their website:
 It would be nice to cite this website as well since it took a significant amount of work...
 
 # Authors
-This C version and Matlab wrapper are written by Stephen Becker, stephen.becker@colorado.edu
+This C version and Matlab wrapper are written by [Stephen Becker](http://amath.colorado.edu/faculty/becker/), stephen.becker@colorado.edu
 
 The L-BFGS-B algorithm was written in the 1990s (mainly 1994, some revisions 1996) by Ciyou Zhu (in collaboration with R.H. Byrd, P. Lu-Chen and J. Nocedal)
 
