@@ -157,7 +157,7 @@ iprint  = setOpts('verbose',-1);
 % I recommend you set this -1 and use the Matlab print features
 % (e.g., set printEvery )
 
-fcn_wrapper([], [], [], printEvery); % initialized persistent variables
+fcn_wrapper([], [], [], 0); % initialize persistent variables
 callF_wrapped = @(x,varargin) fcn_wrapper( callF, errFcn, maxIts, ...
     printEvery, x, varargin{:} );
 % callF_wrapped = @(x,varargin)callF(x); % also valid, but simpler
