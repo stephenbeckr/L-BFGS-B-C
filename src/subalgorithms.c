@@ -2161,7 +2161,7 @@ L30:
     }
     if (dd_p__ > 0.) {
         dcopy(n, &xp[1], &c__1, &x[1], &c__1);
-        if (*iprint >= 0) {
+        if (*iprint >= 99) {
             printf("Positive dir derivative in projection \n");
             printf("Using the backtracking step\n");
         }

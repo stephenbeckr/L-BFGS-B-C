@@ -9,7 +9,7 @@ static integer c__1 = 1;
 	double *dnorm, double *dtd, double *xstep, double *
 	stpmx, integer *iter, integer *ifun, integer *iback, integer *nfgv, 
 	integer *info, integer *task, logical *boxed, logical *cnstnd, integer *
-	csave, integer *isave, double *dsave) /* ftnlen task_len, ftnlen 
+	csave, integer *isave, integer* iprint, double *dsave) /* ftnlen task_len, ftnlen 
 	csave_len) */
 {
     /*

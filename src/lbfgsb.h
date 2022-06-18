@@ -325,7 +325,7 @@ extern int lnsrlb(integer *n, double *l, double *u,
         double *dnorm, double *dtd, double *xstep, double *
         stpmx, integer *iter, integer *ifun, integer *iback, integer *nfgv, 
         integer *info, integer *task, logical *boxed, logical *cnstnd, integer *
-        csave, integer *isave, double *dsave); /* ftnlen task_len, ftnlen 
+        csave, integer *isave, integer* iprint, double *dsave); /* ftnlen task_len, ftnlen 
         csave_len); */
 #define projgr FORTRAN_WRAPPER(projgr) 
 extern  int projgr(integer *, double *, double *,

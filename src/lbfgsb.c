@@ -876,7 +876,7 @@ L666:
     lnsrlb(n, &l[1], &u[1], &nbd[1], &x[1], f, &fold, &gd, &gdold, &g[1], &
             d__[1], &r__[1], &t[1], &z__[1], &stp, &dnorm, &dtd, &xstep, &
             stpmx, &iter, &ifun, &iback, &nfgv, &info, task, &boxed, &cnstnd, 
-            csave, &isave[22], &dsave[17]); /* (ftnlen)60, (ftnlen)60); */
+            csave, &isave[22], iprint, &dsave[17]); /* (ftnlen)60, (ftnlen)60); */
     if (info != 0 || iback >= 20) {
         /*          restore the previous iterate. */
         dcopy(n, &t[1], &c__1, &x[1], &c__1);
