@@ -125,7 +125,9 @@ L556:
         if (*gd >= 0.) {
             /*  the directional derivative >=0. */
             /*  Line search is impossible. */
-            printf("ascend direction in projection gd = %.2e\n", *gd ); 
+            if (*iprint >= 0) {
+                printf("ascend direction in projection gd = %.2e\n", *gd ); 
+            }
             *info = -4;
             return 0;
         }
