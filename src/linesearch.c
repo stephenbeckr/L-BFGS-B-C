@@ -9,7 +9,7 @@ static integer c__1 = 1;
 	double *dnorm, double *dtd, double *xstep, double *
 	stpmx, integer *iter, integer *ifun, integer *iback, integer *nfgv, 
 	integer *info, integer *task, logical *boxed, logical *cnstnd, integer *
-	csave, integer *isave, double *dsave) /* ftnlen task_len, ftnlen 
+	csave, integer *isave, integer *iprint, double *dsave) /* ftnlen task_len, ftnlen 
 	csave_len) */
 {
     /*
@@ -125,7 +125,9 @@ L556:
         if (*gd >= 0.) {
             /*  the directional derivative >=0. */
             /*  Line search is impossible. */
-            printf("ascend direction in projection gd = %.2e\n", *gd ); 
+            if (*iprint >= 0) {
+                printf("ascend direction in projection gd = %.2e\n", *gd ); 
+            }
             *info = -4;
             return 0;
         }
