@@ -311,6 +311,8 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
             /* Or, be a bit bolder: */
             /*g = tempG; // Hmm, crashed */
 
+            mxDestroyArray( LHS[0] ); // fix memory leak, July 2024
+            mxDestroyArray( LHS[1] );
             continue;
         }
         if ( task==NEW_X ) {
@@ -321,8 +323,8 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] )   
 
     }
 
-    mxDestroyArray( LHS[0] );
-    mxDestroyArray( LHS[1] );
+    //mxDestroyArray( LHS[0] );
+    //mxDestroyArray( LHS[1] );
     mxDestroyArray( RHS[0] );
     mxDestroyArray( RHS[1] );
             
