@@ -6,6 +6,7 @@ The include Makefile was tested with gcc
 under Mac and Linux. If you're not using gcc,
 then you proably know more than I do and can
 make the appropriate changes.
+UPDATE: on Mac, using Clang
 
 
 To make the Matlab mex files, either

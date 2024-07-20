@@ -13,7 +13,7 @@ MAJOR Update    Feb 21, 2015  stephen.becker@colorado.edu
     Should not affect end-user. Compilation is SO MUCH EASIER than it
     was with Fortran
     Most of the C code is the same as the Fortran, but a few fcn signatures
-    different, and chanted "task" from str to int, and modified print functions
+    different, and changed "task" from str to int, and modified print functions
     No longer able to print to file 
 
 See also lbfgsb.m and lbfgsb_wrapper.c
@@ -66,17 +66,19 @@ opts.m  = 5;
 opts.errFcn = @(x) norm(x-1); % for now just an arbitrary fcn
 % opts.verbose = -1; % default is -1, i.e., no output from mex
 
-[x,f,info] = lbfgsb( @driver1, l, u, opts );
+[x,fVal,info] = lbfgsb( @driver1, l, u, opts );
 
 % The true objective value is 0.
-if abs(f) < 1e-8
+fStar = 0;
+if abs(fVal) < 1e-8
     disp('Success!');
-    semilogy( abs(info.err(:,1)-f),'o-' ); 
-    xlabel('iteration'); 
-    ylabel('error in objective function');
 else
     disp('Something didn''t work right :-(  ');
 end
+figure(1); clf;
+semilogy( abs(info.err(:,1)-fStar),'o-' ); 
+xlabel('iteration'); 
+ylabel('error in objective function');
 
 % the structure info.err contains the objective function (1st column)
 %   and norm(gradient,Inf) (2nd column)
@@ -113,15 +115,56 @@ opts.pgtol      = 1e-10;
 opts.factr      = 1e3;
 
 % The {f,g} is another way to call it
-[x,f,info] = lbfgsb( {f,g} , l, u, opts );
+[x,fVal,info] = lbfgsb( {f,g} , l, u, opts );
 
-if abs(f) < 1e-8
+if abs(fVal) < 1e-8
     disp('Success!');
-% since we included opts.outputFcn, the info.err now has 3 columns.
-%   The first 2 columns are the same as before; the 3rd column
-%   is the output of our outputFcn
-semilogy( info.err(:,3)-f,'o-' ); xlabel('iteration'); ylabel('relative error in iterate function');
 else
     disp('Something didn''t work right :-(  ');
 end
+figure(1); clf;
+% since we included opts.outputFcn, the info.err now has 3 columns.
+%   The first 2 columns are the same as before; the 3rd column
+%   is the output of our outputFcn
+semilogy( info.err(:,3),'o-' ); xlabel('iteration'); ylabel('relative error in iterate');
 
+%% a large scale test: least-squares
+% You shouldn't use L-BFGS-B to solve this (unless you are doing
+% non-negative least-squarse), use a direct solver or a Krylov subspace
+% method instead. But this is a good test case.
+n = 1e3;
+m = n+2; % make it non-square to help catch bugs
+fprintf('=== least-squares test, dim = %d === \n', n);
+
+rng(101);
+A = randn(m,n);
+b = randn(m,1);
+trueSoln = A\b;
+offset   = -norm(A*trueSoln-b)^2/2;
+
+opts    = struct( 'x0', trueSoln + 1e-3*randn(n,1) + zeros(n,1) );
+opts.printEvery     = 400;
+opts.m  = 5;
+opts.errFcn     = @(x) norm(x-trueSoln)/norm(trueSoln);
+% "outputFcn" will save values in the "info" output
+opts.outputFcn  = opts.errFcn;
+% Ask for very high accuracy
+opts.pgtol      = 1e-14;
+opts.factr      = 1e1;
+opts.maxIts     = 5e4;
+opts.maxTotalIts = 5e4;
+
+fcn = @(x) driver_LeastSquares(x,A,b,offset);
+[x,fVal,info] = lbfgsb( fcn , Inf(n,1), Inf(n,1), opts );
+
+if abs(fVal) < 1e-8
+    disp('Success!');
+else
+    disp('Something didn''t work right :-(  ');
+end
+figure(1); clf;
+semilogy( info.err(:,1),'-','linewidth',2,'DisplayName','Error in objective function' ); 
+hold all
+semilogy( info.err(:,3),'-','linewidth',2,'DisplayName','(Relative) Error in x' ); 
+xlabel('iteration'); 
+legend()
