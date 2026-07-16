@@ -1,5 +1,5 @@
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 
  int lnsrlb(integer *n, double *l, double *u, 
@@ -43,10 +43,10 @@ static integer c__1 = 1;
 
 
     /* Table of constant values */
-    static double c_b14 = FTOL;
-    static double c_b15 = GTOL;
-    static double c_b16 = XTOL;
-    static double c_b17 = STEPMIN;
+    static const double c_b14 = FTOL;
+    static const double c_b15 = GTOL;
+    static const double c_b16 = XTOL;
+    static const double c_b17 = STEPMIN;
     /* System generated locals */
     integer i__1;
     double d__1;
@@ -160,9 +160,9 @@ L556:
 } /* lnsrlb */
 
 /* ======================= The end of lnsrlb ============================= */
-int dcsrch(double *f, double *g, double *stp, 
-        double *ftol, double *gtol, double *xtol, double *
-        stpmin, double *stpmax, integer *task, integer *isave, double *
+int dcsrch(double *f, double *g, double *stp,
+        const double *ftol, const double *gtol, const double *xtol,
+        const double *stpmin, const double *stpmax, integer *task, integer *isave, double *
         dsave) /* ftnlen task_len) */
 {
     /* System generated locals */

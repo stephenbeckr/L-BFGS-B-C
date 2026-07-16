@@ -1,5 +1,5 @@
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 
 /*
@@ -319,7 +319,7 @@ static integer c__1 = 1;
 
 /* Table of constant values */
 
-static double c_b7 = 0.;
+static const double c_b7 = 0.;
 /* SRB: note that task_len is no longer used since task
  * is now integer* not char*.
  * Similarly for csave (now integer*) and so csave_len not used */

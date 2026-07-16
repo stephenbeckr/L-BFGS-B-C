@@ -155,7 +155,7 @@ int prn1lb(integer *n, integer *m, double *l,
 int prn3lb(integer *n, double *x, double *f, integer *
 	task, integer *iprint, integer *info, fileType itfile, integer *iter, 
 	integer *nfgv, integer *nintol, integer *nskip, integer *nact, 
-	double *sbgnrm, double *time, integer *nseg, integer *word, 
+	double *sbgnrm, const double *time, integer *nseg, integer *word,
 	integer *iback, double *stp, double *xstep, integer *k, 
 	double *cachyt, double *sbtime, double *lnscht, ftnlen 
 	task_len, ftnlen word_len)

@@ -1,8 +1,8 @@
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 /* Table of constant values */
-static integer c__11 = 11;
+static const integer c__11 = 11;
 
 /* Subroutine */ int active(integer *n, double *l, double *u, 
 	integer *nbd, double *x, integer *iwhere, integer *iprint, 

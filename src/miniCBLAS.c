@@ -44,8 +44,9 @@
  * */
 #include "lbfgsb.h"
 
-/* Subroutine */ int daxpyRef(integer *n, double *da, double *dx, 
-	integer *incx, double *dy, integer *incy)
+/* Subroutine */ int daxpyRef(const integer *n, const double *da,
+        const double *dx, const integer *incx, double *dy,
+        const integer *incy)
 {
 
     /* System generated locals */
@@ -130,8 +131,8 @@ L40:
 } /* daxpyRef */
 
 
-/* Subroutine */ int dcopyRef(integer *n, double *dx, integer *incx, 
-        double *dy, integer *incy)
+/* Subroutine */ int dcopyRef(const integer *n, const double *dx,
+        const integer *incx, double *dy, const integer *incy)
 {
 
 
@@ -216,8 +217,8 @@ L40:
     return 0;
 } /* dcopyRef */
 
-double ddotRef(integer *n, double *dx, integer *incx, double *dy, 
-        integer *incy)
+double ddotRef(const integer *n, const double *dx, const integer *incx,
+        const double *dy, const integer *incy)
 {
 
 
@@ -305,8 +306,8 @@ L60:
     return ret_val;
 } /* ddotRef */
 
-/* Subroutine */ int dscalRef(integer *n, double *da, double *dx, 
-        integer *incx)
+/* Subroutine */ int dscalRef(const integer *n, const double *da, double *dx,
+        const integer *incx)
 {
 
 

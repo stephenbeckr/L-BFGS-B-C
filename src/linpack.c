@@ -6,7 +6,7 @@
  * */
 
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 int dpofa(double *a, integer *lda, integer *n, integer *
 	info)
@@ -108,8 +108,8 @@ L40:
 
 /* ====================== The end of dpofa =============================== */
 
-int dtrsl(double *t, integer *ldt, integer *n, 
-	double *b, integer *job, integer *info)
+int dtrsl(double *t, integer *ldt, integer *n,
+	double *b, const integer *job, integer *info)
 {
     /* System generated locals */
     integer t_dim1, t_offset, i__1, i__2;
