@@ -44,15 +44,16 @@
  * */
 #include "lbfgsb.h"
 
-/* Subroutine */ int daxpyRef(integer *n, double *da, double *dx, 
-	integer *incx, double *dy, integer *incy)
+/* Subroutine */ int daxpyRef(const integer *n, const double *da,
+        const double *dx, const integer *incx, double *dy,
+        const integer *incy)
 {
 
     /* System generated locals */
     integer i__1;
 
     /* Local variables */
-    static integer i, m, ix, iy, mp1;
+    integer i, m, ix, iy, mp1;
 
 
 /*     constant times a vector plus a vector.   
@@ -130,8 +131,8 @@ L40:
 } /* daxpyRef */
 
 
-/* Subroutine */ int dcopyRef(integer *n, double *dx, integer *incx, 
-        double *dy, integer *incy)
+/* Subroutine */ int dcopyRef(const integer *n, const double *dx,
+        const integer *incx, double *dy, const integer *incy)
 {
 
 
@@ -139,7 +140,7 @@ L40:
     integer i__1;
 
     /* Local variables */
-    static integer i, m, ix, iy, mp1;
+    integer i, m, ix, iy, mp1;
 
 
     /*     copies a vector, x, to a vector, y.   
@@ -216,8 +217,8 @@ L40:
     return 0;
 } /* dcopyRef */
 
-double ddotRef(integer *n, double *dx, integer *incx, double *dy, 
-        integer *incy)
+double ddotRef(const integer *n, const double *dx, const integer *incx,
+        const double *dy, const integer *incy)
 {
 
 
@@ -226,9 +227,9 @@ double ddotRef(integer *n, double *dx, integer *incx, double *dy,
     double ret_val;
 
     /* Local variables */
-    static integer i, m;
-    static double dtemp;
-    static integer ix, iy, mp1;
+    integer i, m;
+    double dtemp;
+    integer ix, iy, mp1;
 
 
     /*     forms the dot product of two vectors.   
@@ -305,8 +306,8 @@ L60:
     return ret_val;
 } /* ddotRef */
 
-/* Subroutine */ int dscalRef(integer *n, double *da, double *dx, 
-        integer *incx)
+/* Subroutine */ int dscalRef(const integer *n, const double *da, double *dx,
+        const integer *incx)
 {
 
 
@@ -314,7 +315,7 @@ L60:
     integer i__1, i__2;
 
     /* Local variables */
-    static integer i, m, nincx, mp1;
+    integer i, m, nincx, mp1;
 
 
     /*     scales a vector by a constant.   
@@ -379,4 +380,3 @@ L40:
     }
     return 0;
 } /* dscalRef */
-

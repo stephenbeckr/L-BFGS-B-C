@@ -35,6 +35,8 @@ SRC = $(LBFGSB) $(LINPACK) $(BLAS) $(TIMER) $(F2CFILES)
 default: all test_1
 all :  lbfgsb_77_1 lbfgsb_77_2 lbfgsb_77_3
 
+.PHONY: test_1 test_parallel
+
 lbfgsb_77_1 : $(DRIVER1_77) $(SRC)
 	$(CC) -o x.lbfgsb_77_1 $(CFLAGS) $(DRIVER1_77) $(SRC) $(POSTFLAGS)
 
@@ -49,3 +51,9 @@ lbfgsb_77_1_nonstatic : $(SRC)
 
 test_1 : x.lbfgsb_77_1
 	./x.lbfgsb_77_1
+
+x.lbfgsb_parallel : test_parallel.c $(SRC)
+	$(CC) -o $@ $(CFLAGS) test_parallel.c $(SRC) $(POSTFLAGS) -pthread
+
+test_parallel : x.lbfgsb_parallel
+	./x.lbfgsb_parallel

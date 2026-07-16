@@ -217,17 +217,17 @@ typedef FILE* fileType;
 /* math.h */
 double sqrt(double);
 
-extern double ddot(integer *, double *, integer *, double *, 
-        integer *);
+extern double ddot(const integer *, const double *, const integer *,
+        const double *, const integer *);
 
-extern  int daxpy(integer *, double *, double *, 
-        integer *, double *, integer *);
+extern int daxpy(const integer *, const double *, const double *,
+        const integer *, double *, const integer *);
 
-extern  int dscal(integer *, double *, double *, 
-        integer *);
+extern int dscal(const integer *, const double *, double *,
+        const integer *);
 
-extern  int dcopy(integer *, double *, integer *, 
-	    double *, integer *);
+extern int dcopy(const integer *, const double *, const integer *,
+        double *, const integer *);
 
 #define setulb FORTRAN_WRAPPER(setulb)
 extern int setulb(integer *n, integer *m, double *x, 
@@ -283,7 +283,7 @@ extern int prn2lb(integer *n, double *x, double *f, double *g,
 extern int prn3lb(integer *n, double *x, double *f, integer *
 	task, integer *iprint, integer *info, fileType itfile, integer *iter, 
 	integer *nfgv, integer *nintol, integer *nskip, integer *nact, 
-	double *sbgnrm, double *time, integer *nseg, integer *word, 
+	double *sbgnrm, const double *time, integer *nseg, integer *word,
 	integer *iback, double *stp, double *xstep, integer *k, 
 	double *cachyt, double *sbtime, double *lnscht, ftnlen 
 	task_len, ftnlen word_len);
@@ -334,8 +334,8 @@ extern  int projgr(integer *, double *, double *,
 /* in linesearch.c */
 #define dcsrch FORTRAN_WRAPPER(dcsrch) 
 extern int dcsrch(double *f, double *g, double *stp, 
-        double *ftol, double *gtol, double *xtol, double *
-        stpmin, double *stpmax, integer *task, integer *isave, double *
+        const double *ftol, const double *gtol, const double *xtol,
+        const double *stpmin, const double *stpmax, integer *task, integer *isave, double *
         dsave);/* ftnlen task_len);*/
 #define dcstep FORTRAN_WRAPPER(dcstep) 
 extern  int dcstep(double *, double *,
@@ -348,7 +348,7 @@ extern int dpofa(double *, integer *, integer *,
 		integer *);
 #define dtrsl FORTRAN_WRAPPER(dtrsl)
 extern int  dtrsl(double *, integer *, integer *, 
-		double *, integer *, integer *);
+		double *, const integer *, integer *);
 
 #ifdef __cplusplus
     }   /* extern "C" */

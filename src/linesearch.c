@@ -1,5 +1,5 @@
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 
  int lnsrlb(integer *n, double *l, double *u, 
@@ -43,18 +43,18 @@ static integer c__1 = 1;
 
 
     /* Table of constant values */
-    static double c_b14 = FTOL;
-    static double c_b15 = GTOL;
-    static double c_b16 = XTOL;
-    static double c_b17 = STEPMIN;
+    static const double c_b14 = FTOL;
+    static const double c_b15 = GTOL;
+    static const double c_b16 = XTOL;
+    static const double c_b17 = STEPMIN;
     /* System generated locals */
     integer i__1;
     double d__1;
 
 
     /* Local variables */
-    static integer i__;
-    static double a1, a2;
+    integer i__;
+    double a1, a2;
 
     /* Parameter adjustments */
     --z__;
@@ -160,9 +160,9 @@ L556:
 } /* lnsrlb */
 
 /* ======================= The end of lnsrlb ============================= */
-int dcsrch(double *f, double *g, double *stp, 
-        double *ftol, double *gtol, double *xtol, double *
-        stpmin, double *stpmax, integer *task, integer *isave, double *
+int dcsrch(double *f, double *g, double *stp,
+        const double *ftol, const double *gtol, const double *xtol,
+        const double *stpmin, const double *stpmax, integer *task, integer *isave, double *
         dsave) /* ftnlen task_len) */
 {
     /* System generated locals */
@@ -170,10 +170,10 @@ int dcsrch(double *f, double *g, double *stp,
 
 
     /* Local variables */
-    static double fm, gm, fx, fy, gx, gy, fxm, fym, gxm, gym, stx, sty;
-    static integer stage;
-    static double finit, ginit, width, ftest, gtest, stmin, stmax, width1;
-    static logical brackt;
+    double fm, gm, fx, fy, gx, gy, fxm, fym, gxm, gym, stx, sty;
+    integer stage;
+    double finit, ginit, width, ftest, gtest, stmin, stmax, width1;
+    logical brackt;
 
     /*
      ********** 
@@ -496,7 +496,7 @@ L1000:
     double sqrt(double);
 
     /* Local variables */
-    static double p, q, r__, s, sgnd, stpc, stpf, stpq, gamma, theta;
+    double p, q, r__, s, sgnd, stpc, stpf, stpq, gamma, theta;
 
     /*
      ********** 
@@ -762,4 +762,3 @@ L1000:
     *stp = stpf;
     return 0;
 } /* dcstep */
-

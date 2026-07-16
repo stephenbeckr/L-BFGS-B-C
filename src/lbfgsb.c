@@ -1,5 +1,5 @@
 #include "lbfgsb.h"
-static integer c__1 = 1;
+static const integer c__1 = 1;
 
 
 /*
@@ -60,7 +60,7 @@ static integer c__1 = 1;
 
 
     /* Local variables */
-    static integer ld, lr, lt, lz, lwa, lwn, lss, lxp, lws, lwt, lsy, lwy, 
+    integer ld, lr, lt, lz, lwa, lwn, lss, lxp, lws, lwt, lsy, lwy,
 	    lsnd;
 
 /* -jlm-jn */
@@ -319,7 +319,7 @@ static integer c__1 = 1;
 
 /* Table of constant values */
 
-static double c_b7 = 0.;
+static const double c_b7 = 0.;
 /* SRB: note that task_len is no longer used since task
  * is now integer* not char*.
  * Similarly for csave (now integer*) and so csave_len not used */
@@ -343,44 +343,44 @@ static double c_b7 = 0.;
     fileType o__1=NULL;
 
     /* Local variables */
-    static integer i__, k;
-    static double gd, dr, rr, dtd;
-    static integer col;
-    static double tol;
-    static logical wrk;
-    static double stp, cpu1, cpu2;
-    static integer head;
-    static double fold;
-    static integer nact;
-    static double ddum;
-    static integer info, nseg;
-    static double time;
-    static integer nfgv, ifun, iter;
-    static integer wordTemp;
-    static integer *word=&wordTemp;
-    static double time1, time2;
-    static integer iback;
-    static double gdold;
-    static integer nfree;
-    static logical boxed;
-    static integer itail;
-    static double theta;
-    static double dnorm;
-    static integer nskip, iword;
-    static double xstep, stpmx;
-    static integer ileave;
-    static double cachyt;
-    static integer itfile;
-    static double epsmch;
-    static logical updatd;
-    static double sbtime;
-    static logical prjctd;
-    static integer iupdat;
-    static double sbgnrm;
-    static logical cnstnd;
-    static integer nenter;
-    static double lnscht;
-    static integer nintol;
+    integer i__, k;
+    double gd, dr, rr, dtd;
+    integer col;
+    double tol;
+    logical wrk;
+    double stp, cpu1, cpu2;
+    integer head;
+    double fold;
+    integer nact;
+    double ddum;
+    integer info, nseg;
+    double time;
+    integer nfgv, ifun, iter;
+    integer wordTemp;
+    integer *word=&wordTemp;
+    double time1, time2;
+    integer iback;
+    double gdold;
+    integer nfree;
+    logical boxed;
+    integer itail;
+    double theta;
+    double dnorm;
+    integer nskip, iword;
+    double xstep, stpmx;
+    integer ileave;
+    double cachyt;
+    integer itfile;
+    double epsmch;
+    logical updatd;
+    double sbtime;
+    logical prjctd;
+    integer iupdat;
+    double sbgnrm;
+    logical cnstnd;
+    integer nenter;
+    double lnscht;
+    integer nintol;
 
 /* -jlm-jn */
 /*     ************ */
@@ -1061,4 +1061,3 @@ L1000:
     dsave[16] = dtd;
     return 0;
 } /* mainlb */
-
