@@ -12,7 +12,7 @@ static const integer c__11 = 11;
     integer i__1;
 
     /* Local variables */
-    static integer i__, nbdd;
+    integer i__, nbdd;
 
 
 /*     ************ */
@@ -127,8 +127,8 @@ static const integer c__11 = 11;
     double sqrt(double);
 
     /* Local variables */
-    static integer i__, k, i2;
-    static double sum;
+    integer i__, k, i2;
+    double sum;
 
 /*     ************ */
 
@@ -275,28 +275,28 @@ static const integer c__11 = 11;
 
 
     /* Local variables */
-    static integer i__, j;
-    static double f1, f2, dt, tj, tl, tu, tj0;
-    static integer ibp;
-    static double dtm;
+    integer i__, j;
+    double f1, f2, dt, tj, tl, tu, tj0;
+    integer ibp;
+    double dtm;
     extern /* Subroutine */ int bmv(integer *, double *, double *, 
 	    integer *, double *, double *, integer *);
-    static double wmc, wmp, wmw;
-    static integer col2;
-    static double dibp;
-    static integer iter;
-    static double zibp, tsum, dibp2;
-    static logical bnded;
-    static double neggi;
-    static integer nfree;
-    static double bkmin;
-    static integer nleft;
-    static double f2_org__;
-    static integer nbreak, ibkmin;
+    double wmc, wmp, wmw;
+    integer col2;
+    double dibp;
+    integer iter;
+    double zibp, tsum, dibp2;
+    logical bnded;
+    double neggi;
+    integer nfree;
+    double bkmin;
+    integer nleft;
+    double f2_org__;
+    integer nbreak, ibkmin;
     extern /* Subroutine */ int hpsolb(integer *, double *, integer *, 
 	    integer *);
-    static integer pointr;
-    static logical xlower, xupper;
+    integer pointr;
+    logical xlower, xupper;
 
 /*     ************ */
 
@@ -828,11 +828,11 @@ L999:
 	    wt_dim1, wt_offset, i__1, i__2;
 
     /* Local variables */
-    static integer i__, j, k;
-    static double a1, a2;
+    integer i__, j, k;
+    double a1, a2;
     extern /* Subroutine */ int bmv(integer *, double *, double *, 
 	    integer *, double *, double *, integer *);
-    static integer pointr;
+    integer pointr;
 
 /*     ************ */
 
@@ -928,10 +928,10 @@ L999:
 	    wy_dim1, wy_offset, sy_dim1, sy_offset, i__1, i__2, i__3;
 
     /* Local variables */
-    static integer i__, k, k1, m2, is, js, iy, jy, is1, js1, col2, dend, pend;
-    static integer upcl;
-    static double temp1, temp2, temp3, temp4;
-    static integer ipntr, jpntr, dbegin, pbegin;
+    integer i__, k, k1, m2, is, js, iy, jy, is1, js1, col2, dend, pend;
+    integer upcl;
+    double temp1, temp2, temp3, temp4;
+    integer ipntr, jpntr, dbegin, pbegin;
 
 /*     ************ */
 
@@ -1310,8 +1310,8 @@ L999:
 	    i__2, i__3;
 
     /* Local variables */
-    static integer i__, j, k, k1;
-    static double ddum;
+    integer i__, j, k, k1;
+    double ddum;
 
 /*     ************ */
 
@@ -1399,7 +1399,7 @@ L999:
     integer i__1;
 
     /* Local variables */
-    static integer i__, k, iact;
+    integer i__, k, iact;
 
 
 /*     ************ */
@@ -1517,9 +1517,9 @@ L999:
     integer i__1;
 
     /* Local variables */
-    static integer i__, j, k;
-    static double out, ddum;
-    static integer indxin, indxou;
+    integer i__, j, k;
+    double out, ddum;
+    integer indxin, indxou;
 
 /*     ************ */
 
@@ -1639,8 +1639,8 @@ L30:
 	    ss_dim1, ss_offset, i__1, i__2;
 
     /* Local variables */
-    static integer j;
-    static integer pointr;
+    integer j;
+    integer pointr;
 
 /*     ************ */
 
@@ -1746,8 +1746,8 @@ L30:
     double d__1, d__2;
 
     /* Local variables */
-    static integer i__;
-    static double gi;
+    integer i__;
+    double gi;
 
 /*     ************ */
 
@@ -1827,13 +1827,13 @@ L30:
     double d__1, d__2;
 
     /* Local variables */
-    static integer i__, j, k, m2;
-    static double dk;
-    static integer js, jy;
-    static double xk;
-    static integer ibd, col2;
-    static double dd_p__, temp1, temp2, alpha;
-    static integer pointr;
+    integer i__, j, k, m2;
+    double dk;
+    integer js, jy;
+    double xk;
+    integer ibd, col2;
+    double dd_p__, temp1, temp2, alpha;
+    integer pointr;
 
 /*     ********************************************************************** */
 
@@ -2225,4 +2225,3 @@ L911:
     }
     return 0;
 } /* subsm */
-

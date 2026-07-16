@@ -53,8 +53,8 @@ static const integer c__1 = 1;
 
 
     /* Local variables */
-    static integer i__;
-    static double a1, a2;
+    integer i__;
+    double a1, a2;
 
     /* Parameter adjustments */
     --z__;
@@ -170,10 +170,10 @@ int dcsrch(double *f, double *g, double *stp,
 
 
     /* Local variables */
-    static double fm, gm, fx, fy, gx, gy, fxm, fym, gxm, gym, stx, sty;
-    static integer stage;
-    static double finit, ginit, width, ftest, gtest, stmin, stmax, width1;
-    static logical brackt;
+    double fm, gm, fx, fy, gx, gy, fxm, fym, gxm, gym, stx, sty;
+    integer stage;
+    double finit, ginit, width, ftest, gtest, stmin, stmax, width1;
+    logical brackt;
 
     /*
      ********** 
@@ -496,7 +496,7 @@ L1000:
     double sqrt(double);
 
     /* Local variables */
-    static double p, q, r__, s, sgnd, stpc, stpf, stpq, gamma, theta;
+    double p, q, r__, s, sgnd, stpc, stpf, stpq, gamma, theta;
 
     /*
      ********** 
@@ -762,4 +762,3 @@ L1000:
     *stp = stpf;
     return 0;
 } /* dcstep */
-

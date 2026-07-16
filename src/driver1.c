@@ -203,25 +203,25 @@ int main(void)
     integer i__1;
     double d__1, d__2;
     /* Local variables */
-    static double f, g[1024];
-    static integer i__;
-    static double l[1024];
-    static integer m, n;
-    static double u[1024], x[1024], t1, t2, wa[43251];
-    static integer nbd[1024], iwa[3072];
+    double f, g[1024];
+    integer i__;
+    double l[1024];
+    integer m, n;
+    double u[1024], x[1024], t1, t2, wa[43251];
+    integer nbd[1024], iwa[3072];
 /*     static char task[60]; */
-    static integer taskValue;
-    static integer *task=&taskValue; /* must initialize !! */
+    integer taskValue;
+    integer *task=&taskValue; /* must initialize !! */
 /*      http://stackoverflow.com/a/11278093/269192 */
-    static double factr;
+    double factr;
 /*     static char csave[60]; */
-    static integer csaveValue;
-    static integer *csave=&csaveValue;
-    static double dsave[29];
-    static integer isave[44];
-    static logical lsave[4];
-    static double pgtol;
-    static integer iprint;
+    integer csaveValue;
+    integer *csave=&csaveValue;
+    double dsave[29];
+    integer isave[44];
+    logical lsave[4];
+    double pgtol;
+    integer iprint;
 
 
 /*

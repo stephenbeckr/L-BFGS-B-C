@@ -30,7 +30,7 @@ int prn1lb(integer *n, integer *m, double *l,
     integer i__1;
 
     /* Local variables */
-    static integer i__;
+    integer i__;
 
     /* Parameter adjustments */
     --x;
@@ -103,7 +103,7 @@ int prn1lb(integer *n, integer *m, double *l,
     integer i__1;
 
     /* Local variables */
-    static integer i__, imod;
+    integer i__, imod;
 
     /* Parameter adjustments */
     --g;
@@ -186,7 +186,7 @@ int prn3lb(integer *n, double *x, double *f, integer *
     integer i__1;
 
     /* Local variables */
-    static integer i__;
+    integer i__;
     /* Parameter adjustments */
     --x;
 
@@ -304,7 +304,7 @@ int errclb(integer *n, integer *m, double *factr,
     integer i__1;
 
     /* Local variables */
-    static integer i__;
+    integer i__;
 
     /* Parameter adjustments */
     --nbd;
@@ -336,4 +336,3 @@ int errclb(integer *n, integer *m, double *factr,
     }
     return 0;
 } /* errclb */
-

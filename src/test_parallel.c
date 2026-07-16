@@ -1,4 +1,6 @@
 /* Regression test for concurrent, independent setulb calls. */
+#define _XOPEN_SOURCE 700
+
 #include "lbfgsb.h"
 
 #include <math.h>
